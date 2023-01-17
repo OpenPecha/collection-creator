@@ -2,7 +2,7 @@ from pathlib import Path
 from openpecha.core.pecha import OpenPechaFS
 
 from items.pecha import Pecha
-from serializers.serialize import ViewSerializer
+from views.view import ViewSerializer
 
 
 

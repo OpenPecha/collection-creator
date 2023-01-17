@@ -4,7 +4,7 @@ from typing import List
 from openpecha.core.ids import get_collection_id
 from openpecha.utils import dump_yaml
 
-from serializers.serialize import ViewSerializer
+from views.view import ViewSerializer
 
 
 class Collection:

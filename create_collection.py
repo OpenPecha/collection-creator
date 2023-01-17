@@ -5,8 +5,8 @@ from openpecha.core.pecha import OpenPechaFS
 
 from collection.pecha import PechaCollection
 from items.pecha import Pecha
-from serializers.hfml import HFMLViewSerializer
-from serializers.plain_base import PlainBaseViewSerializer
+from views.hfml import HFMLViewSerializer
+from views.plain_base import PlainBaseViewSerializer
 from views.view import View
 
 
