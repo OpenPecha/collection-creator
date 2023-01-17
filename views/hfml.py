@@ -1,6 +1,6 @@
 from openpecha.serializers.hfml import HFMLSerializer
 
-from serializers.serialize import ViewSerializer
+from views.view import ViewSerializer
 
 
 class HFMLViewSerializer(ViewSerializer):

@@ -24,8 +24,8 @@ class Collection:
         for view in self.views:
             views.append(view.to_dict())
         items = []
-        for items in self.items:
-            items.append(items.id)
+        for item in self.items:
+            items.append(item.id)
         collection = {
             'views': views,
             'collection': {

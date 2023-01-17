@@ -1,12 +1,21 @@
 import csv
+from pathlib import Path
+from typing import List
 
 from collection.collection import Collection
+from views.view import ViewSerializer
 
 
 class PechaCollection(Collection):
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, title:str, items, views:List[ViewSerializer], parent_dir: Path, id=None) -> None:
+        super().__init__(
+            title=title,
+            items=items,
+            views=views,
+            parent_dir=parent_dir,
+            id=id
+            )
 
     def save_catalog(self, view_name):
         catalog_file_path = self.collection_dir / f"Catelog_{view_name}.csv"
