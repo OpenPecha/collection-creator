@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+from abc import ABC,abstractmethod
 
 from openpecha.core.ids import get_collection_id
 from openpecha.utils import dump_yaml
@@ -7,9 +8,9 @@ from openpecha.utils import dump_yaml
 from views.view import ViewSerializer
 
 
-class Collection:
+class Collection(ABC):
 
-    def __init__(self, title:str, items, views:List[ViewSerializer], parent_dir: Path, id=None) -> None:
+    def __init__(self, title:str, items:List[str], views:List[ViewSerializer], parent_dir: Path, id=None) -> None:
         self.id = id or get_collection_id()
         self.title = title
         self.views = views
@@ -18,6 +19,13 @@ class Collection:
         self.collection_dir.mkdir(parents=True, exist_ok=True)
         
     
+    """
+    cant save collection file be abstract method
+    """
+    @abstractmethod
+    def get_items_obj():
+        pass
+
     def save_collection_file(self):
         collection_file_path = self.collection_dir / f"{self.id}.yml"
         views = []
@@ -35,12 +43,14 @@ class Collection:
             }
         }
         dump_yaml(collection, collection_file_path)
+
     
     def save_view(self, view: ViewSerializer):
         view_dir = self.collection_dir / view.name
         view_dir.mkdir(parents=True, exist_ok=True)
+        serializer = view.serializer_class()
+
         for item in self.items:
-            serializer = view.serializer_class()
             serializer.serialize(item, view_dir)
 
 
