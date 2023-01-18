@@ -56,7 +56,7 @@ def get_collection(collection_title: str, parent_dir: Path):
     return collection
 
 if __name__ == "__main__":
-    collection_title = "Orna"
+    collection_title = "Tengyur text not in Derge"
     parent_dir = Path('./data/')
     collection = get_collection(collection_title=collection_title, parent_dir=parent_dir)
     collection.save_collection()

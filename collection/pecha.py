@@ -18,7 +18,7 @@ class PechaCollection(Collection):
             )
 
     def save_catalog(self, view_name):
-        catalog_file_path = self.collection_dir / f"Catelog_{view_name}.csv"
+        catalog_file_path = self.collection_dir / f"Catalog_{view_name}.csv"
         field_names = ['FILE NAME', 'TITLE', 'OP ID', 'BDRC ID', 'VOLUME NUMBER']
         items = []
         for item in self.items:
