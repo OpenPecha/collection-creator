@@ -81,7 +81,9 @@ if __name__ == "__main__":
         views=views,
         parent_dir=parent_dir
     )
-    collection.save_collection()
+    collection.save_collection(
+        
+    )
 
 
 
