@@ -4,12 +4,12 @@ from typing import List
 from openpecha.core.ids import get_collection_id
 from openpecha.utils import dump_yaml
 
-from views.view import ViewSerializer
+from views.view import View
 
 
 class Collection:
 
-    def __init__(self, title:str, items, views:List[ViewSerializer], parent_dir: Path, id=None) -> None:
+    def __init__(self, title:str, items, views:List[View], parent_dir: Path, id=None) -> None:
         self.id = id or get_collection_id()
         self.title = title
         self.views = views
@@ -36,7 +36,7 @@ class Collection:
         }
         dump_yaml(collection, collection_file_path)
     
-    def save_view(self, view: ViewSerializer):
+    def save_view(self, view: View):
         view_dir = self.collection_dir / view.name
         view_dir.mkdir(parents=True, exist_ok=True)
         for item in self.items:
@@ -48,12 +48,13 @@ class Collection:
         for view in self.views:
             self.save_view(view)
     
-    def save_catalog(self, view_name):
-        return NotImplementedError("Please implement the saving of catelog.")
+    def save_readme(self):
+        return NotImplementedError("Please implement saving readme")
 
     
     def save_collection(self):
         self.save_collection_file()
         self.save_views()
         for view in self.views:
-            self.save_catalog(view_name=view.name)
+            view.save_catalog(self.collection_dir, self.items)
+        self.save_readme()

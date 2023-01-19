@@ -5,15 +5,15 @@ from openpecha.core.pecha import OpenPechaFS
 
 from collection.pecha import PechaCollection
 from items.pecha import Pecha
-from views.hfml import HFMLViewSerializer
-from views.plain_base import PlainBaseViewSerializer
+from views.hfml import HFMLView, HFMLViewSerializer
+from views.plain_base import PlainBaseView, PlainBaseViewSerializer
 from views.view import View
 
 
 def get_views() ->List[View]:
     views = [
-        View(name='PlainBase', serializer_class=PlainBaseViewSerializer),
-        View(name='HFML', serializer_class=HFMLViewSerializer)
+        PlainBaseView(name='PlainBase', serializer_class=PlainBaseViewSerializer),
+        HFMLView(name='HFML', serializer_class=HFMLViewSerializer)
     ]
     return views
 

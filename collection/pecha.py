@@ -3,12 +3,12 @@ from pathlib import Path
 from typing import List
 
 from collection.collection import Collection
-from views.view import ViewSerializer
+from views.view import View
 
 
 class PechaCollection(Collection):
 
-    def __init__(self, title:str, items, views:List[ViewSerializer], parent_dir: Path, id=None) -> None:
+    def __init__(self, title:str, items, views:List[View], parent_dir: Path, id=None) -> None:
         super().__init__(
             title=title,
             items=items,
@@ -17,22 +17,11 @@ class PechaCollection(Collection):
             id=id
             )
 
-    def save_catalog(self, view_name):
-        catalog_file_path = self.collection_dir / f"Catalog_{view_name}.csv"
-        field_names = ['FILE NAME', 'TITLE', 'OP ID', 'BDRC ID', 'VOLUME NUMBER']
-        items = []
-        for item in self.items:
-            cur_item_infos = [
-                item.base_name,
-                item.title,
-                item.id,
-                item.bdrc_id,
-                item.volume_number
-            ]
-            items.append(cur_item_infos)
-        with open(catalog_file_path, 'w') as csvfile:
-            csvwriter = csv.writer(csvfile)   
-            csvwriter.writerow(field_names) 
-        
-            # writing the data rows 
-            csvwriter.writerows(items)
+    def save_readme(self):
+        readme = f"""
+        ID: {self.id}
+        Title: {self.title}
+        Number of Pecha: {len(self.items)}
+
+        """
+        (self.collection_dir / "ReadMe.md").write_text(readme, encoding="utf-8")
