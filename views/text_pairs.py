@@ -1,9 +1,17 @@
-from views.view import ViewSerializer
+from .view import ViewSerializer,View
 from openpecha.utils import load_yaml,_mkdir,download_pecha
 from pathlib import Path
 from typing import List
 
-class TextPairsSerializer(ViewSerializer):        
+class TextPairView(View):
+    def __init__(self, name: str, serializer_class: ViewSerializer) -> None:
+        super().__init__(name, serializer_class)
+
+    def save_catalog(self, collection_dir: Path, items: List):
+        pass
+
+
+class TextPairSerializer(ViewSerializer):        
 
     def __init__(self):
         self.type_of_layers = set()
@@ -97,7 +105,7 @@ class TextPairsSerializer(ViewSerializer):
                 segment_ann = item_to_layer[pecha_id]["segment_layer"]["annotations"]
                 span = segment_ann[seg_id]["span"]
                 segment_text = base_text[span["start"]:span["end"]]
-                lang = segment_sources[pecha_id]["lang"]
+                lang = segment_sources[pecha_id]["language"]
                 if lang not in view.keys():
                     view.update({lang:segment_text})
                 else:

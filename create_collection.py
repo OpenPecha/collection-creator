@@ -5,16 +5,15 @@ from openpecha.core.pecha import OpenPechaFS
 from collection.pecha_collection import PechaCollection
 from collection.alignment_collection import AlignmentCollection
 from items.pecha import Pecha
-from views.hfml import HFMLViewSerializer
-from views.plain_base import PlainBaseViewSerializer
-from views.text_pairs import TextPairsSerializer
+from views.hfml import HFMLView, HFMLViewSerializer
+from views.plain_base import PlainBaseView, PlainBaseViewSerializer
 from views.view import View
 
 
 def get_views() ->List[View]:
     views = [
-        View(name='PlainBase', serializer_class=PlainBaseViewSerializer),
-        View(name='HFML', serializer_class=HFMLViewSerializer)
+        PlainBaseView(name='PlainBase', serializer_class=PlainBaseViewSerializer),
+        HFMLView(name='HFML', serializer_class=HFMLViewSerializer)
     ]
     return views
 
@@ -64,26 +63,10 @@ def get_collection(collection_title: str, parent_dir: Path):
     
     return collection
 
-""" if __name__ == "__main__":
-    collection_title = "Orna"
+if __name__ == "__main__":
+    collection_title = "Tengyur text not in Derge"
     parent_dir = Path('./data/')
     collection = get_collection(collection_title=collection_title, parent_dir=parent_dir)
-    collection.save_collection() """
-
-if __name__ == "__main__":
-    items = ["A6E3A916A"]
-    views = [View(name="text-pairs",serializer_class=TextPairsSerializer)]
-    parent_dir = Path('./data/')
-
-    collection = AlignmentCollection(
-        title="demo",
-        items=items,
-        views=views,
-        parent_dir=parent_dir
-    )
-    collection.save_collection(
-        
-    )
-
+    collection.save_collection()
 
 
